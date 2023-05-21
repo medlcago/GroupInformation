@@ -12,15 +12,15 @@ clGroup::~clGroup() {
 }
 
 void clGroup::readFromStream(std::istream& in) {
-    std::cout << "Ââåäèòå íàçâàíèå ãðóïïû: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹: ";
     getline(in, name);
-    std::cout << "Ââåäèòå èíñòèòóò: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ð¸Ð½ÑÑ‚Ð¸Ñ‚ÑƒÑ‚: ";
     getline(in, institute);
-    std::cout << "Ââåäèòå êàôåäðó: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÐ°Ñ„ÐµÐ´Ñ€Ñƒ: ";
     getline(in, department);
-    std::cout << "Ââåäèòå êóðàòîðà: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ ÐºÑƒÑ€Ð°Ñ‚Ð¾Ñ€Ð°: ";
     getline(in, curator);
-    std::cout << "Ââåäèòå ÷èñëåííîñòü ãðóïïû: ";
+    std::cout << "Ð’Ð²ÐµÐ´Ð¸Ñ‚Ðµ Ñ‡Ð¸ÑÐ»ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹: ";
     in >> size;
 
     in.ignore(32767, '\n');
@@ -33,18 +33,18 @@ void clGroup::readFromStream(std::istream& in) {
     students = new clStudent[size];
 
     for (int i = 0; i < size; i++) {
-        std::cout << "Ñòóäåíò #" << i + 1 << ": " << std::endl;
+        std::cout << "Ð¡Ñ‚ÑƒÐ´ÐµÐ½Ñ‚ #" << i + 1 << ": " << std::endl;
         in >> students[i];
         std::cout << std::endl;
     }
 }
 
 void clGroup::printGroupInformation(std::ostream& out) const {
-    out << std::left << std::setw(20) << "Íàçâàíèå ãðóïïû"
-        << std::setw(20) << "Èíñòèòóò"
-        << std::setw(20) << "Êàôåäðà"
-        << std::setw(20) << "Êóðàòîð"
-        << std::setw(20) << "×èñëåííîñòü ãðóïïû" << '\n';
+    out << std::left << std::setw(20) << "ÐÐ°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹"
+        << std::setw(20) << "Ð˜Ð½ÑÑ‚Ð¸Ñ‚ÑƒÑ‚"
+        << std::setw(20) << "ÐšÐ°Ñ„ÐµÐ´Ñ€Ð°"
+        << std::setw(20) << "ÐšÑƒÑ€Ð°Ñ‚Ð¾Ñ€"
+        << std::setw(20) << "Ð§Ð¸ÑÐ»ÐµÐ½Ð½Ð¾ÑÑ‚ÑŒ Ð³Ñ€ÑƒÐ¿Ð¿Ñ‹" << '\n';
     out << std::left << std::setw(20) << name
         << std::setw(20) << institute
         << std::setw(20) << department
@@ -56,7 +56,7 @@ void clGroup::printGroupInformation(std::ostream& out) const {
 
 void clGroup::writeToStream(std::ostream& out) const {
     for (int i = 0; i < size; i++) {
-        out << "Ñòóäåíò #" << i + 1 << ":\n";
+        out << "Ð¡Ñ‚ÑƒÐ´ÐµÐ½Ñ‚ #" << i + 1 << ":\n";
         out << students[i];
     }
     std::cout << kLineSeparator;

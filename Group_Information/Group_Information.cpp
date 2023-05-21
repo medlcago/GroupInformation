@@ -1,5 +1,4 @@
 ﻿#include <iostream>
-#include <Windows.h>
 
 #include "clStudent.h"
 #include "clDate.h"
@@ -8,8 +7,8 @@
 #include "clGroup.h"
 
 int main() {
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    system("chcp 1251");
+    system("cls");
 
     clGroup group;
     std::cin >> group;

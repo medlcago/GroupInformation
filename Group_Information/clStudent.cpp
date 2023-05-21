@@ -43,7 +43,7 @@ clSesion* clStudent::get_session(int semester_number, int discipline_number) {
 
 clSesion& clStudent::operator[](int discipline_number) {
     for (auto& semester : semesters) {
-        if (semester.semester_number == 2) { // текущий семестр
+        if (semester.semester_number == 2) { // С‚РµРєСѓС‰РёР№ СЃРµРјРµСЃС‚СЂ
             return *semester.get_session(discipline_number);
         }
     }
@@ -53,17 +53,17 @@ clSesion& clStudent::operator[](int discipline_number) {
 std::vector<clStudent> clStudent::create_students() {
     std::vector<clStudent> students;
 
-    clStudent student1("Королев", "Александр", "Андреевич", clDate(1, 1, 2003), "М", clDate(8, 8, 2022), 6000);
-    clSemester semester1(1); // первый семестр
-    semester1.add_session(clSesion("Математика", clDate(31, 12, 2018), 5, "Иванов И.И."));
-    semester1.add_session(clSesion("Физика", clDate(31, 12, 2018), 4, "Петров П.П."));
+    clStudent student1("РљРѕСЂРѕР»РµРІ", "РђР»РµРєСЃР°РЅРґСЂ", "РђРЅРґСЂРµРµРІРёС‡", clDate(1, 1, 2003), "Рњ", clDate(8, 8, 2022), 6000);
+    clSemester semester1(1); // РїРµСЂРІС‹Р№ СЃРµРјРµСЃС‚СЂ
+    semester1.add_session(clSesion("РњР°С‚РµРјР°С‚РёРєР°", clDate(31, 12, 2018), 5, "РРІР°РЅРѕРІ Р.Р."));
+    semester1.add_session(clSesion("Р¤РёР·РёРєР°", clDate(31, 12, 2018), 4, "РџРµС‚СЂРѕРІ Рџ.Рџ."));
     student1.add_semester(semester1);
     students.push_back(student1);
 
-    clStudent student2("Гончарова", "Александра", "Ивановна", clDate(18, 9, 2004), "Ж", clDate(9, 8, 2022), 9000);
-    clSemester semester2(2); // второй семестр
-    semester2.add_session(clSesion("Математика", clDate(30, 6, 2019), 3, "Иванов И.И."));
-    semester2.add_session(clSesion("Физика", clDate(30, 6, 2019), 2, "Петров П.П.")); // задолженность
+    clStudent student2("Р“РѕРЅС‡Р°СЂРѕРІР°", "РђР»РµРєСЃР°РЅРґСЂР°", "РРІР°РЅРѕРІРЅР°", clDate(18, 9, 2004), "Р–", clDate(9, 8, 2022), 9000);
+    clSemester semester2(2); // РІС‚РѕСЂРѕР№ СЃРµРјРµСЃС‚СЂ
+    semester2.add_session(clSesion("РњР°С‚РµРјР°С‚РёРєР°", clDate(30, 6, 2019), 3, "РРІР°РЅРѕРІ Р.Р."));
+    semester2.add_session(clSesion("Р¤РёР·РёРєР°", clDate(30, 6, 2019), 2, "РџРµС‚СЂРѕРІ Рџ.Рџ.")); // Р·Р°РґРѕР»Р¶РµРЅРЅРѕСЃС‚СЊ
     student2.add_semester(semester2);
     students.push_back(student2);
 
@@ -73,7 +73,7 @@ std::vector<clStudent> clStudent::create_students() {
 bool clStudent::has_debts() const {
     for (const auto& semester : semesters) {
         for (const auto& session : semester.sessions) {
-            if (session.grade == 2) { // если оценка равна 2
+            if (session.grade == 2) { // РµСЃР»Рё РѕС†РµРЅРєР° СЂР°РІРЅР° 2
                 return true;
             }
         }
@@ -95,7 +95,7 @@ std::string clStudent::get_patronymic() const {
 
 void clStudent::list_of_debtors() const {
     std::vector<clStudent> students = create_students();
-    std::cout << "Список должников:\n";
+    std::cout << "РЎРїРёСЃРѕРє РґРѕР»Р¶РЅРёРєРѕРІ:\n";
     bool has_debtors = false;
     for (const auto& student : students) {
         if (student.has_debts()) {
@@ -104,37 +104,37 @@ void clStudent::list_of_debtors() const {
         }
     }
     if (!has_debtors) {
-        std::cout << "Нет должников\n";
+        std::cout << "РќРµС‚ РґРѕР»Р¶РЅРёРєРѕРІ\n";
     }
 }
 
 
 std::istream& operator>>(std::istream& in, clStudent& student) {
-    std::cout << "Введите фамилию студента: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ С„Р°РјРёР»РёСЋ СЃС‚СѓРґРµРЅС‚Р°: ";
     in >> student.surname;
     in.ignore(32768, '\n');
 
-    std::cout << "Введите имя студента: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РёРјСЏ СЃС‚СѓРґРµРЅС‚Р°: ";
     in >> student.name;
     in.ignore(32768, '\n');
 
-    std::cout << "Введите отчество студента: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РѕС‚С‡РµСЃС‚РІРѕ СЃС‚СѓРґРµРЅС‚Р°: ";
     in >> student.patronymic;
     in.ignore(32768, '\n');
 
-    std::cout << "Введите дату рождения студента: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РґР°С‚Сѓ СЂРѕР¶РґРµРЅРёСЏ СЃС‚СѓРґРµРЅС‚Р°: ";
     in >> student.birthdate;
     in.ignore(32768, '\n');
 
-    std::cout << "Введите пол студента: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РїРѕР» СЃС‚СѓРґРµРЅС‚Р°: ";
     in >> student.gender;
     in.ignore(32768, '\n');
 
-    std::cout << "Введите дату зачисления студента: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ РґР°С‚Сѓ Р·Р°С‡РёСЃР»РµРЅРёСЏ СЃС‚СѓРґРµРЅС‚Р°: ";
     in >> student.enrollment_date;
     in.ignore(32768, '\n');
 
-    std::cout << "Введите стипендию студента: ";
+    std::cout << "Р’РІРµРґРёС‚Рµ СЃС‚РёРїРµРЅРґРёСЋ СЃС‚СѓРґРµРЅС‚Р°: ";
     in >> student.scholarship;
     in.ignore(32768, '\n');
 
@@ -143,13 +143,13 @@ std::istream& operator>>(std::istream& in, clStudent& student) {
 }
 
 std::ostream& operator<<(std::ostream& out, const clStudent& student) {
-    out << "Фамилия: " << student.surname << '\n';
-    out << "Имя: " << student.name << '\n';
-    out << "Отчество: " << student.patronymic << '\n';
-    out << "Дата рождения: " << student.birthdate << '\n';
-    out << "Пол: " << student.gender << '\n';
-    out << "Дата зачисления: " << student.enrollment_date << '\n';
-    out << "Размер стипендии: " << student.scholarship << '\n';
+    out << "Р¤Р°РјРёР»РёСЏ: " << student.surname << '\n';
+    out << "РРјСЏ: " << student.name << '\n';
+    out << "РћС‚С‡РµСЃС‚РІРѕ: " << student.patronymic << '\n';
+    out << "Р”Р°С‚Р° СЂРѕР¶РґРµРЅРёСЏ: " << student.birthdate << '\n';
+    out << "РџРѕР»: " << student.gender << '\n';
+    out << "Р”Р°С‚Р° Р·Р°С‡РёСЃР»РµРЅРёСЏ: " << student.enrollment_date << '\n';
+    out << "Р Р°Р·РјРµСЂ СЃС‚РёРїРµРЅРґРёРё: " << student.scholarship << '\n';
     out << std::endl;
     return out;
 }

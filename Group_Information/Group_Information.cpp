@@ -1,8 +1,10 @@
-#include <iostream>
+﻿#include <iostream>
 #include <Windows.h>
 
-#include "clDate.h"
 #include "clStudent.h"
+#include "clDate.h"
+#include "clSemester.h"
+#include "clSesion.h"
 #include "clGroup.h"
 
 int main() {
@@ -16,5 +18,11 @@ int main() {
     std::cout << group;
     group.sort_students();
     std::cout << group;
+
+    clStudent students;
+    students.create_students();
+    students.list_of_debtors();
     return 0;
 }
+
+

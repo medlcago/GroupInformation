@@ -50,45 +50,45 @@ void clStudent::remove_session(int semester, int discipline_index) {
 }
 
 void clStudent::print_sessions(std::ostream& out) const {
-    out << "ÔÈÎ ñòóäåíòà: " << surname << " " << name << " " << patronymic << '\n';
+    out << "Ğ¤Ğ˜Ğ ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ°: " << surname << " " << name << " " << patronymic << '\n';
     for (int i = 0; i < sessions.size(); i++) {
-        out << "Ñåìåñòğ " << i + 1 << ":\n\n";
+        out << "Ğ¡ĞµĞ¼ĞµÑÑ‚Ñ€ " << i + 1 << ":\n\n";
         for (const auto& session : sessions[i]) {
-            out << "Äèñöèïëèíà: " << session.discipline << '\n';
-            out << "Äàòà: " << session.date << '\n';
-            out << "Îöåíêà: " << session.grade << '\n';
-            out << "Ïğåïîäàâàòåëü: " << session.teacher << "\n\n";
+            out << "Ğ”Ğ¸ÑÑ†Ğ¸Ğ¿Ğ»Ğ¸Ğ½Ğ°: " << session.discipline << '\n';
+            out << "Ğ”Ğ°Ñ‚Ğ°: " << session.date << '\n';
+            out << "ĞÑ†ĞµĞ½ĞºĞ°: " << session.grade << '\n';
+            out << "ĞŸÑ€ĞµĞ¿Ğ¾Ğ´Ğ°Ğ²Ğ°Ñ‚ĞµĞ»ÑŒ: " << session.teacher << "\n\n";
         }
     }
     out << kLineSeparator;
 }
 
 std::istream& operator>>(std::istream& in, clStudent& student) {
-    std::cout << "Ââåäèòå ôàìèëèş ñòóäåíòà: ";
+    std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ñ„Ğ°Ğ¼Ğ¸Ğ»Ğ¸Ñ ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ°: ";
     in >> student.surname;
     in.ignore(32768, '\n');
 
-    std::cout << "Ââåäèòå èìÿ ñòóäåíòà: ";
+    std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ğ¸Ğ¼Ñ ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ°: ";
     in >> student.name;
     in.ignore(32768, '\n');
 
-    std::cout << "Ââåäèòå îò÷åñòâî ñòóäåíòà: ";
+    std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ğ¾Ñ‚Ñ‡ĞµÑÑ‚Ğ²Ğ¾ ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ°: ";
     in >> student.patronymic;
     in.ignore(32768, '\n');
 
-    std::cout << "Ââåäèòå äàòó ğîæäåíèÿ ñòóäåíòà: ";
+    std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ğ´Ğ°Ñ‚Ñƒ Ñ€Ğ¾Ğ¶Ğ´ĞµĞ½Ğ¸Ñ ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ°: ";
     in >> student.birthdate;
     in.ignore(32768, '\n');
 
-    std::cout << "Ââåäèòå ïîë ñòóäåíòà: ";
+    std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ğ¿Ğ¾Ğ» ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ°: ";
     in >> student.gender;
     in.ignore(32768, '\n');
 
-    std::cout << "Ââåäèòå äàòó çà÷èñëåíèÿ ñòóäåíòà: ";
+    std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ Ğ´Ğ°Ñ‚Ñƒ Ğ·Ğ°Ñ‡Ğ¸ÑĞ»ĞµĞ½Ğ¸Ñ ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ°: ";
     in >> student.enrollment_date;
     in.ignore(32768, '\n');
 
-    std::cout << "Ââåäèòå ñòèïåíäèş ñòóäåíòà: ";
+    std::cout << "Ğ’Ğ²ĞµĞ´Ğ¸Ñ‚Ğµ ÑÑ‚Ğ¸Ğ¿ĞµĞ½Ğ´Ğ¸Ñ ÑÑ‚ÑƒĞ´ĞµĞ½Ñ‚Ğ°: ";
     in >> student.scholarship;
     in.ignore(32768, '\n');
 
@@ -97,13 +97,13 @@ std::istream& operator>>(std::istream& in, clStudent& student) {
 }
 
 std::ostream& operator<<(std::ostream& out, const clStudent& student) {
-    out << "Ôàìèëèÿ: " << student.surname << '\n';
-    out << "Èìÿ: " << student.name << '\n';
-    out << "Îò÷åñòâî: " << student.patronymic << '\n';
-    out << "Äàòà ğîæäåíèÿ: " << student.birthdate << '\n';
-    out << "Ïîë: " << student.gender << '\n';
-    out << "Äàòà çà÷èñëåíèÿ: " << student.enrollment_date << '\n';
-    out << "Ğàçìåğ ñòèïåíäèè: " << student.scholarship << '\n';
+    out << "Ğ¤Ğ°Ğ¼Ğ¸Ğ»Ğ¸Ñ: " << student.surname << '\n';
+    out << "Ğ˜Ğ¼Ñ: " << student.name << '\n';
+    out << "ĞÑ‚Ñ‡ĞµÑÑ‚Ğ²Ğ¾: " << student.patronymic << '\n';
+    out << "Ğ”Ğ°Ñ‚Ğ° Ñ€Ğ¾Ğ¶Ğ´ĞµĞ½Ğ¸Ñ: " << student.birthdate << '\n';
+    out << "ĞŸĞ¾Ğ»: " << student.gender << '\n';
+    out << "Ğ”Ğ°Ñ‚Ğ° Ğ·Ğ°Ñ‡Ğ¸ÑĞ»ĞµĞ½Ğ¸Ñ: " << student.enrollment_date << '\n';
+    out << "Ğ Ğ°Ğ·Ğ¼ĞµÑ€ ÑÑ‚Ğ¸Ğ¿ĞµĞ½Ğ´Ğ¸Ğ¸: " << student.scholarship << '\n';
     out << std::endl;
     return out;
 }

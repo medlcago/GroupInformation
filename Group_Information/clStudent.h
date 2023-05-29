@@ -1,11 +1,9 @@
 #pragma once
-
-#include <iostream>
 #include <string>
 #include <vector>
 
 #include "clDate.h"
-#include "clSemester.h"
+#include "clSession.h"
 
 class clStudent {
 protected:
@@ -16,8 +14,7 @@ protected:
     std::string gender;
     clDate enrollment_date;
     int scholarship;
-    std::vector<clSemester> semesters;
-
+    std::vector<std::vector<clSession>> sessions;
 public:
     clStudent();
 
@@ -27,25 +24,16 @@ public:
 
     bool operator<(const clStudent& other) const;
 
-    void add_semester(clSemester semester);
-
-    clSesion* get_session(int semester_number, int discipline_number);
-
-    clSesion& operator[](int discipline_number);
-
-    static std::vector<clStudent> create_students();
-
-    bool has_debts() const;
-
-    std::string get_surname() const;
-    std::string get_name() const;
-    std::string get_patronymic() const;
-
-    void list_of_debtors() const;
 
     friend class clGroup;
     friend std::istream& operator>>(std::istream& in, clStudent& student);
     friend std::ostream& operator<<(std::ostream& out, const clStudent& student);
+
+    void add_session(int semester, const clSession& session);
+
+    void remove_session(int semester, int discipline_index);
+
+    void print_sessions(std::ostream& out) const;
 };
 
 

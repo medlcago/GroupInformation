@@ -23,6 +23,8 @@ public:
 
     ~clGroup();
 
+    int get_size() const;
+
     void readFromStream(std::istream& in);
 
     void printGroupInformation(std::ostream& out) const;
@@ -32,6 +34,11 @@ public:
     void sort_students();
 
     clStudent& operator[](int index);
+
+    void print_debtors(std::ostream& out, int min_grade) const;
+    
+    void student_achievement(std::ostream& out) const;
+
 
     friend std::istream& operator>>(std::istream& in, clGroup& group);
     friend std::ostream& operator<<(std::ostream& out, const clGroup& group);

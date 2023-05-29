@@ -27,10 +27,7 @@
     <ClCompile Include="clStudent.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="clSesion.cpp">
-      <Filter>Исходные файлы</Filter>
-    </ClCompile>
-    <ClCompile Include="clSemester.cpp">
+    <ClCompile Include="clSession.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
@@ -44,10 +41,7 @@
     <ClInclude Include="clStudent.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="clSesion.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
-    <ClInclude Include="clSemester.h">
+    <ClInclude Include="clSession.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

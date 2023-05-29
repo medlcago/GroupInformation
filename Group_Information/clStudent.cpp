@@ -1,4 +1,5 @@
 #include "clStudent.h"
+#include "clGroup.h"
 
 clStudent::clStudent() {}
 
@@ -28,113 +29,66 @@ bool clStudent::operator<(const clStudent& other) const {
     return gender < other.gender;
 }
 
-void clStudent::add_semester(clSemester semester) {
-    semesters.push_back(semester);
+void clStudent::add_session(int semester, const clSession& session) {
+    if (semester < 1) {
+        throw std::out_of_range("Semester out of range");
+    }
+    if (semester > sessions.size()) {
+        sessions.resize(semester);
+    }
+    sessions[semester - 1].push_back(session);
 }
 
-clSesion* clStudent::get_session(int semester_number, int discipline_number) {
-    for (auto& semester : semesters) {
-        if (semester.semester_number == semester_number) {
-            return semester.get_session(discipline_number);
+void clStudent::remove_session(int semester, int discipline_index) {
+    if (semester < 1 || semester > sessions.size()) {
+        throw std::out_of_range("Semester out of range");
+    }
+    if (discipline_index < 1 || discipline_index > sessions[semester - 1].size()) {
+        throw std::out_of_range("Discipline index out of range");
+    }
+    sessions[semester - 1].erase(sessions[semester - 1].begin() + discipline_index - 1);
+}
+
+void clStudent::print_sessions(std::ostream& out) const {
+    out << "‘»Œ ÒÚÛ‰ÂÌÚ‡: " << surname << " " << name << " " << patronymic << '\n';
+    for (int i = 0; i < sessions.size(); i++) {
+        out << "—ÂÏÂÒÚ " << i + 1 << ":\n\n";
+        for (const auto& session : sessions[i]) {
+            out << "ƒËÒˆËÔÎËÌ‡: " << session.discipline << '\n';
+            out << "ƒ‡Ú‡: " << session.date << '\n';
+            out << "ŒˆÂÌÍ‡: " << session.grade << '\n';
+            out << "œÂÔÓ‰‡‚‡ÚÂÎ¸: " << session.teacher << "\n\n";
         }
     }
-    return nullptr;
+    out << kLineSeparator;
 }
-
-clSesion& clStudent::operator[](int discipline_number) {
-    for (auto& semester : semesters) {
-        if (semester.semester_number == 2) { // —Ç–µ–∫—É—â–∏–π —Å–µ–º–µ—Å—Ç—Ä
-            return *semester.get_session(discipline_number);
-        }
-    }
-    throw std::out_of_range("Invalid discipline number");
-}
-
-std::vector<clStudent> clStudent::create_students() {
-    std::vector<clStudent> students;
-
-    clStudent student1("–ö–æ—Ä–æ–ª–µ–≤", "–ê–ª–µ–∫—Å–∞–Ω–¥—Ä", "–ê–Ω–¥—Ä–µ–µ–≤–∏—á", clDate(1, 1, 2003), "–ú", clDate(8, 8, 2022), 6000);
-    clSemester semester1(1); // –ø–µ—Ä–≤—ã–π —Å–µ–º–µ—Å—Ç—Ä
-    semester1.add_session(clSesion("–ú–∞—Ç–µ–º–∞—Ç–∏–∫–∞", clDate(31, 12, 2018), 5, "–ò–≤–∞–Ω–æ–≤ –ò.–ò."));
-    semester1.add_session(clSesion("–§–∏–∑–∏–∫–∞", clDate(31, 12, 2018), 4, "–ü–µ—Ç—Ä–æ–≤ –ü.–ü."));
-    student1.add_semester(semester1);
-    students.push_back(student1);
-
-    clStudent student2("–ì–æ–Ω—á–∞—Ä–æ–≤–∞", "–ê–ª–µ–∫—Å–∞–Ω–¥—Ä–∞", "–ò–≤–∞–Ω–æ–≤–Ω–∞", clDate(18, 9, 2004), "–ñ", clDate(9, 8, 2022), 9000);
-    clSemester semester2(2); // –≤—Ç–æ—Ä–æ–π —Å–µ–º–µ—Å—Ç—Ä
-    semester2.add_session(clSesion("–ú–∞—Ç–µ–º–∞—Ç–∏–∫–∞", clDate(30, 6, 2019), 3, "–ò–≤–∞–Ω–æ–≤ –ò.–ò."));
-    semester2.add_session(clSesion("–§–∏–∑–∏–∫–∞", clDate(30, 6, 2019), 2, "–ü–µ—Ç—Ä–æ–≤ –ü.–ü.")); // –∑–∞–¥–æ–ª–∂–µ–Ω–Ω–æ—Å—Ç—å
-    student2.add_semester(semester2);
-    students.push_back(student2);
-
-    return students;
-}
-
-bool clStudent::has_debts() const {
-    for (const auto& semester : semesters) {
-        for (const auto& session : semester.sessions) {
-            if (session.grade == 2) { // –µ—Å–ª–∏ –æ—Ü–µ–Ω–∫–∞ —Ä–∞–≤–Ω–∞ 2
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-std::string clStudent::get_surname() const {
-    return surname;
-}
-
-std::string clStudent::get_name() const {
-    return name;
-}
-
-std::string clStudent::get_patronymic() const {
-    return patronymic;
-}
-
-void clStudent::list_of_debtors() const {
-    std::vector<clStudent> students = create_students();
-    std::cout << "–°–ø–∏—Å–æ–∫ –¥–æ–ª–∂–Ω–∏–∫–æ–≤:\n";
-    bool has_debtors = false;
-    for (const auto& student : students) {
-        if (student.has_debts()) {
-            has_debtors = true;
-            std::cout << student;
-        }
-    }
-    if (!has_debtors) {
-        std::cout << "–ù–µ—Ç –¥–æ–ª–∂–Ω–∏–∫–æ–≤\n";
-    }
-}
-
 
 std::istream& operator>>(std::istream& in, clStudent& student) {
-    std::cout << "–í–≤–µ–¥–∏—Ç–µ —Ñ–∞–º–∏–ª–∏—é —Å—Ç—É–¥–µ–Ω—Ç–∞: ";
+    std::cout << "¬‚Â‰ËÚÂ Ù‡ÏËÎË˛ ÒÚÛ‰ÂÌÚ‡: ";
     in >> student.surname;
     in.ignore(32768, '\n');
 
-    std::cout << "–í–≤–µ–¥–∏—Ç–µ –∏–º—è —Å—Ç—É–¥–µ–Ω—Ç–∞: ";
+    std::cout << "¬‚Â‰ËÚÂ ËÏˇ ÒÚÛ‰ÂÌÚ‡: ";
     in >> student.name;
     in.ignore(32768, '\n');
 
-    std::cout << "–í–≤–µ–¥–∏—Ç–µ –æ—Ç—á–µ—Å—Ç–≤–æ —Å—Ç—É–¥–µ–Ω—Ç–∞: ";
+    std::cout << "¬‚Â‰ËÚÂ ÓÚ˜ÂÒÚ‚Ó ÒÚÛ‰ÂÌÚ‡: ";
     in >> student.patronymic;
     in.ignore(32768, '\n');
 
-    std::cout << "–í–≤–µ–¥–∏—Ç–µ –¥–∞—Ç—É —Ä–æ–∂–¥–µ–Ω–∏—è —Å—Ç—É–¥–µ–Ω—Ç–∞: ";
+    std::cout << "¬‚Â‰ËÚÂ ‰‡ÚÛ ÓÊ‰ÂÌËˇ ÒÚÛ‰ÂÌÚ‡: ";
     in >> student.birthdate;
     in.ignore(32768, '\n');
 
-    std::cout << "–í–≤–µ–¥–∏—Ç–µ –ø–æ–ª —Å—Ç—É–¥–µ–Ω—Ç–∞: ";
+    std::cout << "¬‚Â‰ËÚÂ ÔÓÎ ÒÚÛ‰ÂÌÚ‡: ";
     in >> student.gender;
     in.ignore(32768, '\n');
 
-    std::cout << "–í–≤–µ–¥–∏—Ç–µ –¥–∞—Ç—É –∑–∞—á–∏—Å–ª–µ–Ω–∏—è —Å—Ç—É–¥–µ–Ω—Ç–∞: ";
+    std::cout << "¬‚Â‰ËÚÂ ‰‡ÚÛ Á‡˜ËÒÎÂÌËˇ ÒÚÛ‰ÂÌÚ‡: ";
     in >> student.enrollment_date;
     in.ignore(32768, '\n');
 
-    std::cout << "–í–≤–µ–¥–∏—Ç–µ —Å—Ç–∏–ø–µ–Ω–¥–∏—é —Å—Ç—É–¥–µ–Ω—Ç–∞: ";
+    std::cout << "¬‚Â‰ËÚÂ ÒÚËÔÂÌ‰Ë˛ ÒÚÛ‰ÂÌÚ‡: ";
     in >> student.scholarship;
     in.ignore(32768, '\n');
 
@@ -143,13 +97,13 @@ std::istream& operator>>(std::istream& in, clStudent& student) {
 }
 
 std::ostream& operator<<(std::ostream& out, const clStudent& student) {
-    out << "–§–∞–º–∏–ª–∏—è: " << student.surname << '\n';
-    out << "–ò–º—è: " << student.name << '\n';
-    out << "–û—Ç—á–µ—Å—Ç–≤–æ: " << student.patronymic << '\n';
-    out << "–î–∞—Ç–∞ —Ä–æ–∂–¥–µ–Ω–∏—è: " << student.birthdate << '\n';
-    out << "–ü–æ–ª: " << student.gender << '\n';
-    out << "–î–∞—Ç–∞ –∑–∞—á–∏—Å–ª–µ–Ω–∏—è: " << student.enrollment_date << '\n';
-    out << "–†–∞–∑–º–µ—Ä —Å—Ç–∏–ø–µ–Ω–¥–∏–∏: " << student.scholarship << '\n';
+    out << "‘‡ÏËÎËˇ: " << student.surname << '\n';
+    out << "»Ïˇ: " << student.name << '\n';
+    out << "ŒÚ˜ÂÒÚ‚Ó: " << student.patronymic << '\n';
+    out << "ƒ‡Ú‡ ÓÊ‰ÂÌËˇ: " << student.birthdate << '\n';
+    out << "œÓÎ: " << student.gender << '\n';
+    out << "ƒ‡Ú‡ Á‡˜ËÒÎÂÌËˇ: " << student.enrollment_date << '\n';
+    out << "–‡ÁÏÂ ÒÚËÔÂÌ‰ËË: " << student.scholarship << '\n';
     out << std::endl;
     return out;
 }

@@ -129,16 +129,14 @@
   <ItemGroup>
     <ClCompile Include="clDate.cpp" />
     <ClCompile Include="clGroup.cpp" />
-    <ClCompile Include="clSemester.cpp" />
-    <ClCompile Include="clSesion.cpp" />
+    <ClCompile Include="clSession.cpp" />
     <ClCompile Include="clStudent.cpp" />
     <ClCompile Include="Group_Information.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="clDate.h" />
     <ClInclude Include="clGroup.h" />
-    <ClInclude Include="clSemester.h" />
-    <ClInclude Include="clSesion.h" />
+    <ClInclude Include="clSession.h" />
     <ClInclude Include="clStudent.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -9,7 +9,7 @@ bool clDate::operator<(const clDate& other) const {
 }
 
 std::istream& operator>>(std::istream& in, clDate& date) {
-    std::cout << "(äåíü ìåñÿö ãîä): ";
+    std::cout << "(Ã¤Ã¥Ã­Ã¼ Ã¬Ã¥Ã±Ã¿Ã¶ Ã£Ã®Ã¤): ";
     in >> date.day >> date.month >> date.year;
     return in;
 }

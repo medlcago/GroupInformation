@@ -1,9 +1,9 @@
 #pragma once
 #include <string>
-#include <vector>
 
 #include "clDate.h"
 #include "clSession.h"
+#include "LinkedList.h"
 
 class clStudent {
 protected:
@@ -14,7 +14,7 @@ protected:
     std::string gender;
     clDate enrollment_date;
     int scholarship;
-    std::vector<std::vector<clSession>> sessions;
+    LinkedList<LinkedList<clSession>> sessions;
 public:
     clStudent();
 
@@ -33,7 +33,7 @@ public:
 
     void remove_session(int semester, int discipline_index);
 
-    void print_sessions(std::ostream& out) const;
+    void print_sessions(std::ostream& out);
 };
 
 

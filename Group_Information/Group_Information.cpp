@@ -8,6 +8,7 @@
 
 #include "clGroup.h"
 
+
 int main() {
     system("chcp 1251");
     system("cls");
@@ -47,5 +48,4 @@ int main() {
 
     return 0;
 }
-
 

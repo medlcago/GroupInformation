@@ -10,6 +10,11 @@ public:
 
     LinkedList() : head(nullptr), tail(nullptr), size(0) {}
 
+    ~LinkedList() {
+        while (head != nullptr)
+            pop_front();
+    }
+
     void push_front(T data);
     void push_back(T data);
     void pop_front();

@@ -1,12 +1,11 @@
 ﻿#include <iostream>
 #include <string>
-#include <random>
 #include <iomanip>
 #include <algorithm>
 #include <limits>
-#include <vector>
 
 #include "clGroup.h"
+#include "LinkedList.h"
 
 
 int main() {
@@ -24,19 +23,19 @@ int main() {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> grade_distribution(2, 5);
-    std::vector<std::pair<std::string, std::string>> subjects = {
-        {"Средства вычислительной техники", "Матюхина Е.Н."},
-        {"Физика", "Волков Г.С."},
-        {"Языки программирования", "Филатов В.В."},
-        {"Правоведение", "Мазеин А.В."},
-        {"Математический анализ", "Головешкин В.А."},
-        {"Иностранный язык", "Виноградова М.В."}
-    };
+    
+    LinkedList<std::pair<std::string, std::string>> subjects;
+    subjects.push_back({ "Средства вычислительной техники", "Матюхина Е.Н." });
+    subjects.push_back({ "Физика", "Волков Г.С." });
+    subjects.push_back({ "Языки программирования", "Филатов В.В." });
+    subjects.push_back({ "Правоведение", "Мазеин А.В." });
+    subjects.push_back({ "Математический анализ", "Головешкин В.А." });
+    subjects.push_back({ "Иностранный язык", "Виноградова М.В." });
 
     for (int i = 0; i < group.get_size(); i++) {
         for (int j = 1; j <= 2; j++) {
-            std::shuffle(subjects.begin(), subjects.end(), gen);
-            for (int k = 0; k < subjects.size(); k++) {
+            subjects.shuffle(gen);
+            for (int k = 0; k < subjects.getSize(); k++) {
                 int grade = grade_distribution(gen);
                 auto subject_teacher_pair = subjects[k];
                 group[i].add_session(j, clSession(subject_teacher_pair.first, clDate(1, 1, 2020), grade, subject_teacher_pair.second));

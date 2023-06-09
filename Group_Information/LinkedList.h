@@ -1,5 +1,6 @@
 #pragma once
 #include "Node.h"
+#include <random>
 
 template<typename T>
 class LinkedList {
@@ -24,6 +25,7 @@ public:
     void resize(int newSize, T value = T());
     int getSize() const;
     T& getAt(int k);
+    void shuffle(std::mt19937& gen);
     void print();
 };
 
@@ -143,6 +145,15 @@ T& LinkedList<T>::getAt(int k) {
         current = current->next;
     }
     return current->data;
+}
+
+template<typename T>
+void LinkedList<T>::shuffle(std::mt19937& gen) {
+    for (int i = size - 1; i > 0; i--) {
+        std::uniform_int_distribution<> dis(0, i);
+        int j = dis(gen);
+        std::swap((*this)[i], (*this)[j]);
+    }
 }
 
 template<typename T>
